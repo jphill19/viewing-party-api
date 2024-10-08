@@ -4,10 +4,9 @@ describe "Movies API", type: :request do
   describe "#index action" do
     context "request is valid" do
       it "returns 200 and provides top 20 rated movies" do
-        json_response = File.read('spec/fixtures/top_20_rated_movies_query.json')
-        stub_request(:get, "https://api.themoviedb.org/3/movie/top_rated").to_return(status: 200, body:json_response)
-
-        get "/api/v1/movies"
+        VCR.use_cassette("beatles_artist_query") do
+          get "/api/v1/movies"
+        end
         expect(response).to be_successful
         json = JSON.parse(response.body, symbolize_names: true)
     
