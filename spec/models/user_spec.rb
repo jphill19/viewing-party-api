@@ -8,5 +8,7 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:password) }
     it { should have_secure_password }
     it { should have_secure_token(:api_key) }
+    it { should have_many(:event_invitations).dependent(:destroy) }
+    it { should have_many(:events).through(:event_invitations) }
   end
 end

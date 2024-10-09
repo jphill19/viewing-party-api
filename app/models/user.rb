@@ -5,4 +5,7 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token :api_key
 
+  has_many :event_invitations, dependent: :destroy
+  has_many :events, through: :event_invitations
+
 end

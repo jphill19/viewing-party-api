@@ -7,6 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+User.destroy_all
 User.create!(name: "Danny DeVito", username: "danny_de_v", password: "jerseyMikesRox7")
 User.create!(name: "Dolly Parton", username: "dollyP", password: "Jolene123")
 User.create!(name: "Lionel Messi", username: "futbol_geek", password: "test123")
+User.create!(name: "John Hill", username: "js_geek", password: "test123")
+User.create!(name: "Caitlin Hill", username: "kirby_lover", password: "test123")
