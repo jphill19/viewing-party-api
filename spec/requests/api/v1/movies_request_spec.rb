@@ -10,14 +10,14 @@ describe "Movies API", type: :request do
         end
         expect(response).to be_successful
         json = JSON.parse(response.body, symbolize_names: true)
-    
-        expect(json[:data]).to be_an(Array)
-        expect(json[:data].count).to eq(20)
 
-        expect(json[:data].first[:id]).not_to be_nil
-        expect(json[:data].first[:type]).to eq("movie")
-        expect(json[:data].first[:attributes]).to have_key(:title)
-        expect(json[:data].first[:attributes]).to have_key(:vote_average)
+        expect(json).to be_an(Array)
+        expect(json.count).to eq(20)
+
+        expect(json.first[:id]).not_to be_nil
+        expect(json.first[:type]).to eq("movie")
+        expect(json.first[:attributes]).to have_key(:title)
+        expect(json.first[:attributes]).to have_key(:vote_average)
       end
 
       it "can handle query params, and return filtered results based on the param" do
@@ -30,13 +30,13 @@ describe "Movies API", type: :request do
         expect(response).to be_successful
         json = JSON.parse(response.body, symbolize_names: true)
     
-        expect(json[:data]).to be_an(Array)
-        expect(json[:data].count).to eq(20)
+        expect(json).to be_an(Array)
+        expect(json.count).to eq(20)
 
-        expect(json[:data].first[:id]).not_to be_nil
-        expect(json[:data].first[:type]).to eq("movie")
-        expect(json[:data].first[:attributes]).to have_key(:title)
-        expect(json[:data].first[:attributes]).to have_key(:vote_average)
+        expect(json.first[:id]).not_to be_nil
+        expect(json.first[:type]).to eq("movie")
+        expect(json.first[:attributes]).to have_key(:title)
+        expect(json.first[:attributes]).to have_key(:vote_average)
       end
     end
   end
@@ -51,11 +51,11 @@ describe "Movies API", type: :request do
         expect(response).to be_successful
         json = JSON.parse(response.body, symbolize_names: true)
 
-        expect(json[:data]).to be_a(Hash)
-        expect(json[:data][:id]).to eq(278)
-        expect(json[:data][:type]).to eq("movie")
+        expect(json).to be_a(Hash)
+        expect(json[:id]).to eq(278)
+        expect(json[:type]).to eq("movie")
 
-        attributes = json[:data][:attributes]
+        attributes = json[:attributes]
 
         expect(attributes[:title]).to eq("The Shawshank Redemption")
         expect(attributes[:release_year]).to eq(1994)
