@@ -148,9 +148,61 @@ RSpec.describe TmdbGateway, type: :service do
             status_message: 'Invalid id: The pre-requisite id is invalid or not found.'
           })
 
-          result = @tmdb_gateway.show_action(-1) # Use an invalid movie ID
+          result = @tmdb_gateway.show_action(-1) #
 
           expect(result).to eq('Invalid id: The pre-requisite id is invalid or not found.')
+        end
+      end
+    end
+  end
+  
+  describe '.return_runtime_if_data_is_valid' do
+    context 'when valid data is provided' do
+      it 'returns the movie runtime' do
+        VCR.use_cassette('tmdb_valid_movie') do
+          data = {
+            'movie_id' => 278,          
+            'movie_name' => 'The Shawshank Redemption'
+          }
+
+          result = TmdbGateway.return_runtime_if_data_is_valid(data)
+
+          expect(result).to be_an(Integer)
+          expect(result).to eq(142)  
+        end
+      end
+    end
+
+    context 'when the movie ID does not exist' do
+      it 'returns an error message' do
+        VCR.use_cassette('tmdb_invalid_movie_id') do
+          data = {
+            'movie_id' => 0,          
+            'movie_name' => 'Nonexistent Movie'
+          }
+
+          result = TmdbGateway.return_runtime_if_data_is_valid(data)
+ 
+          expect(result).to be_a(ErrorMessage)
+          expect(result.message).to eq("Can't find a movie with that id")
+          expect(result.status_code).to eq(400)
+        end
+      end
+    end
+
+    context 'when the movie name does not match the movie ID' do
+      it 'returns an error message' do
+        VCR.use_cassette('tmdb_movie_name_mismatch') do
+          data = {
+            'movie_id' => 278,          
+            'movie_name' => 'Incorrect Movie Name'
+          }
+
+          result = TmdbGateway.return_runtime_if_data_is_valid(data)
+         
+          expect(result).to be_a(ErrorMessage)
+          expect(result.message).to eq("The name of the movie doesn't match that Id")
+          expect(result.status_code).to eq(400)
         end
       end
     end

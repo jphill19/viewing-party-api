@@ -17,7 +17,7 @@ class Api::V1::MoviesController < ApplicationController
     if data.is_a?(String)
       return render json: ErrorSerializer.format_error(ErrorMessage.new(data,400)), status: :bad_request
     end
-
+ 
     render json: TmdbSerializer.format_show_movie(data)
   end
 

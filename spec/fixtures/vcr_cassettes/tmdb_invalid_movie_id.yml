@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/0
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<TMDB_API_KEY>"
+      User-Agent:
+      - Faraday v2.10.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 11 Oct 2024 21:53:26 GMT
+      Server:
+      - openresty
+      X-Cascade:
+      - pass
+      Vary:
+      - Accept-Encoding,accept-encoding
+      - Origin
+      X-Cache:
+      - Error from cloudfront
+      Via:
+      - 1.1 57e3d5d3b005fa4d07716cb3ffc6ecc0.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - ATL58-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - fDsBVBwetelrQaCQfm-l2MTHQ12RtyOvdX-f4w01VE-HzNIuzdmHUg==
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":false,"status_code":6,"status_message":"Invalid id: The
+        pre-requisite id is invalid or not found."}'
+  recorded_at: Fri, 11 Oct 2024 21:53:26 GMT
+recorded_with: VCR 6.3.1

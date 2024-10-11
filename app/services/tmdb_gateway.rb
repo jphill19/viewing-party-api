@@ -44,4 +44,23 @@ class TmdbGateway
 
     MovieData.new(details_data, cast_data, credits_data)
   end
+
+  def self.return_runtime_if_data_is_valid(data)
+    conn = Faraday.new(url: "https://api.themoviedb.org") do |faraday|
+      faraday.headers["Authorization"] = Rails.application.credentials.tmdb[:api_key_auth]
+    end
+    details_endpoint = "/3/movie/#{data["movie_id"]}"
+    response_details = conn.get(details_endpoint)
+    request_data= JSON.parse(response_details.body, symbolize_names: true)
+
+    if request_data[:success] == false
+      return ErrorMessage.new("Can't find a movie with that id", 400)
+    end
+   
+    if request_data[:original_title] != data["movie_title"]
+      return ErrorMessage.new("The name of the movie doesn't match that Id", 400)
+    end
+
+    request_data[:runtime]
+  end
 end

@@ -1,22 +1,33 @@
 class Api::V1::EventsController < ApplicationController
-  # before_action :authenticate_user
+
   before_action :authenticate_user_api_key
 
   def create
-    invitees = params["invitees"]
-    # @event = Event.new(event_params)
 
+    invitees = params["invitees"]
     valid_invitees = User.where(id: invitees)
-    
+
     if valid_invitees.size != invitees.size
       return render json: ErrorSerializer.format_error(ErrorMessage.new("Some invitees do not exist", 422)), status: :unprocessable_entity
     end
 
-    # user = User.find_by(api_key: event.api_key)
-    # binding.pry
-    # if user.nil?
-    #   return render json: ErrorSerializer.format_error(ErrorMessage.new("Invalid login credentials", 401)), status: :unauthorized
-    # end
+    runtime = TmdbGateway.return_runtime_if_data_is_valid(event_params)
+    if runtime.is_a?(ErrorMessage)
+
+      return render json: ErrorSerializer.format_error(runtime), status: runtime.status_code
+    end
+    event = Event.new(event_params.merge(movie_length: runtime))
+
+    if event.save
+      valid_invitees.each do |user|
+        EventInvitation.create!(event: event, user: user)
+      end
+
+      render json: EventSerializer.new(event), status: :created
+    else
+      error_message = ErrorMessage.new(event.errors.full_messages.join(', '), 422)
+      render json: ErrorSerializer.format_error(error_message), status: :unprocessable_entity
+    end
 
   end
 
@@ -34,8 +45,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def authenticate_user_api_key
-    @event = Event.new(event_params)
-    user = User.find_by(api_key: @event.api_key)
+    user = User.find_by(api_key: params[:api_key])
     if user.nil?
       return render json: ErrorSerializer.format_error(ErrorMessage.new("Invalid login credentials", 401)), status: :unauthorized
     end

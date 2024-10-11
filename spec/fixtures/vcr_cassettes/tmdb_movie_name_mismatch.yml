@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/278
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - "<TMDB_API_KEY>"
+      User-Agent:
+      - Faraday v2.10.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Fri, 11 Oct 2024 20:36:12 GMT
+      Server:
+      - openresty
+      Cache-Control:
+      - public, max-age=25518
+      X-Memc:
+      - HIT
+      X-Memc-Key:
+      - a82a2c8a9c6a51913fe064810ce45134
+      X-Memc-Age:
+      - '3119'
+      X-Memc-Expires:
+      - '25518'
+      Etag:
+      - W/"3938f06a22815a74436f88c1610fc4fc"
+      Vary:
+      - Accept-Encoding,accept-encoding
+      - Origin
+      X-Cache:
+      - Hit from cloudfront
+      Via:
+      - 1.1 da53febaa1af8b24d592f546f0d18dd6.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - ATL58-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 5lgG7st6m3eaG1-1Q1ZYkSiZdmOu10zgtUieGGOcji-wnoHWf-zltw==
+      Age:
+      - '4635'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"adult":false,"backdrop_path":"/kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg","belongs_to_collection":null,"budget":25000000,"genres":[{"id":18,"name":"Drama"},{"id":80,"name":"Crime"}],"homepage":"","id":278,"imdb_id":"tt0111161","origin_country":["US"],"original_language":"en","original_title":"The
+        Shawshank Redemption","overview":"Imprisoned in the 1940s for the double murder
+        of his wife and her lover, upstanding banker Andy Dufresne begins a new life
+        at the Shawshank prison, where he puts his accounting skills to work for an
+        amoral warden. During his long stretch in prison, Dufresne comes to be admired
+        by the other inmates -- including an older prisoner named Red -- for his integrity
+        and unquenchable sense of hope.","popularity":178.955,"poster_path":"/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg","production_companies":[{"id":97,"logo_path":"/7znWcbDd4PcJzJUlJxYqAlPPykp.png","name":"Castle
+        Rock Entertainment","origin_country":"US"}],"production_countries":[{"iso_3166_1":"US","name":"United
+        States of America"}],"release_date":"1994-09-23","revenue":28341469,"runtime":142,"spoken_languages":[{"english_name":"English","iso_639_1":"en","name":"English"}],"status":"Released","tagline":"Fear
+        can hold you prisoner. Hope can set you free.","title":"The Shawshank Redemption","video":false,"vote_average":8.707,"vote_count":26932}'
+  recorded_at: Fri, 11 Oct 2024 21:53:27 GMT
+recorded_with: VCR 6.3.1
