@@ -1,6 +1,7 @@
 class Api::V1::EventsController < ApplicationController
 
-  before_action :authenticate_user_api_key
+  before_action :authenticate_user_api_key, only: [:create]
+  before_action :validate_key_for_update, only: [:add_user]
 
   def create
 
@@ -31,6 +32,14 @@ class Api::V1::EventsController < ApplicationController
 
   end
 
+  def add_user
+    user_id = params["invitees_user_id"]
+    user = User.find(user_id)
+    EventInvitation.create!(event: @event, user: user)
+    render json: EventSerializer.new(@event), status: :ok
+  end
+
+
   private
 
   def event_params
@@ -51,4 +60,10 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  def validate_key_for_update
+    @event = Event.find(params[:id])
+    if @event.api_key != params[:api_key]
+      return render json: ErrorSerializer.format_error(ErrorMessage.new("Invalid login credentials", 401)), status: :unauthorized
+    end
+  end
 end

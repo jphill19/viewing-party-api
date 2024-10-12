@@ -36,7 +36,7 @@ RSpec.describe "Users API", type: :request do
 
         expect(response).to have_http_status(:bad_request)
         expect(json[:message]).to eq("Username has already been taken")
-        expect(json[:status]).to eq(422)
+        expect(json[:status]).to eq(400)
       end
 
       it "returns an error when password does not match password confirmation" do

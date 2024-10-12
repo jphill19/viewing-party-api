@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :sessions, only: :create
       resources :movies, only:  [:index, :show]
       resources :events, only: [:create]
+      patch '/events/:id/add_user', to: 'events#add_user'
     end
   end
 end
