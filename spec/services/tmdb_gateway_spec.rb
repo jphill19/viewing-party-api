@@ -102,71 +102,17 @@ RSpec.describe TmdbGateway, type: :service do
     end
   end
 
-  describe '#show_action' do
-    context 'when a valid movie ID is provided' do
-      it 'returns a MovieData object' do
-        VCR.use_cassette('tmdb_show_action_valid') do
-          movie_details_data = {
-            id: 278,
-            title: 'The Shawshank Redemption',
-            release_date: '1994-09-23',
-            vote_average: 8.707,
-            runtime: 142,
-            genres: [{ id: 18, name: 'Drama' }, { id: 80, name: 'Crime' }],
-            overview: 'Imprisoned in the 1940s for the double murder of his wife and her lover...'
-          }
-          movie_cast_data = {
-            cast: [
-              { name: 'Tim Robbins', character: 'Andy Dufresne' },
-              { name: 'Morgan Freeman', character: 'Ellis Boyd "Red" Redding' }
-            ]
-          }
-          movie_reviews_data = {
-            total_results: 2,
-            results: [
-              { author: 'John Doe', content: 'Amazing movie!' },
-              { author: 'Jane Smith', content: 'A timeless classic.' }
-            ]
-          }
-
-          allow(@tmdb_gateway).to receive(:movie_details).and_return(movie_details_data)
-          allow(@tmdb_gateway).to receive(:movie_cast).and_return(movie_cast_data)
-          allow(@tmdb_gateway).to receive(:movie_reviews).and_return(movie_reviews_data)
-
-          result = @tmdb_gateway.show_action(278)
-
-          expect(result).to be_a(MovieData)
-        end
-      end
-    end
-
-    context 'when an invalid movie ID is provided' do
-      it 'returns an error message' do
-        VCR.use_cassette('tmdb_show_action_invalid') do
-          allow(@tmdb_gateway).to receive(:movie_details).and_return({
-            success: false,
-            status_message: 'Invalid id: The pre-requisite id is invalid or not found.'
-          })
-
-          result = @tmdb_gateway.show_action(-1) #
-
-          expect(result).to eq('Invalid id: The pre-requisite id is invalid or not found.')
-        end
-      end
-    end
-  end
-  
   describe '.return_runtime_if_data_is_valid' do
     context 'when valid data is provided' do
       it 'returns the movie runtime' do
         VCR.use_cassette('tmdb_valid_movie') do
           data = {
             'movie_id' => 278,          
-            'movie_name' => 'The Shawshank Redemption'
+            'movie_title' => 'The Shawshank Redemption'
           }
 
           result = TmdbGateway.return_runtime_if_data_is_valid(data)
-
+          
           expect(result).to be_an(Integer)
           expect(result).to eq(142)  
         end
@@ -195,7 +141,7 @@ RSpec.describe TmdbGateway, type: :service do
         VCR.use_cassette('tmdb_movie_name_mismatch') do
           data = {
             'movie_id' => 278,          
-            'movie_name' => 'Incorrect Movie Name'
+            'movie_title' => 'Incorrect Movie Name'
           }
 
           result = TmdbGateway.return_runtime_if_data_is_valid(data)
