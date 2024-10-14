@@ -8,4 +8,12 @@ class User < ApplicationRecord
   has_many :event_invitations, dependent: :destroy
   has_many :events, through: :event_invitations
 
+  def parties_invited
+    events
+        .joins("INNER JOIN users ON users.api_key = events.api_key")
+        .select("events.*, users.id AS host_id, users.name AS host_name")
+  end
+
+  
+
 end

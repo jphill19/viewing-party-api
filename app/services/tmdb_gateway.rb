@@ -56,7 +56,7 @@ class TmdbGateway
     if request_data[:success] == false
       return ErrorMessage.new("Can't find a movie with that id", 400)
     end
-   
+
     if request_data[:original_title] != data["movie_title"]
       return ErrorMessage.new("The name of the movie doesn't match that Id", 400)
     end

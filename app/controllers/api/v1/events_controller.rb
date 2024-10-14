@@ -4,7 +4,6 @@ class Api::V1::EventsController < ApplicationController
   before_action :validate_key_for_update, only: [:add_user]
 
   def create
-
     invitees = params["invitees"]
     valid_invitees = User.where(id: invitees)
 

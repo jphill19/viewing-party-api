@@ -29,7 +29,7 @@ describe "Events API", type: :request do
     
           post "/api/v1/events", params: valid_event_params.to_json, headers: headers
         end
-
+       
         expect(response).to have_http_status(:created)
         json_response = JSON.parse(response.body, symbolize_names: true)
 
