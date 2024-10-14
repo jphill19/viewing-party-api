@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.themoviedb.org/3/movie/99999999999999999999999999999999999
+    uri: https://api.themoviedb.org/3/movie/1
     body:
       encoding: US-ASCII
       string: ''
@@ -27,27 +27,25 @@ http_interactions:
       Connection:
       - keep-alive
       Date:
-      - Thu, 10 Oct 2024 22:49:36 GMT
+      - Fri, 11 Oct 2024 01:44:50 GMT
       Server:
       - openresty
-      X-Cascade:
-      - pass
       Vary:
       - Accept-Encoding,accept-encoding
       - Origin
       X-Cache:
       - Error from cloudfront
       Via:
-      - 1.1 8d6071bd169bbf5fd46638140132b1d0.cloudfront.net (CloudFront)
+      - 1.1 cc35f8ad6c62cb7f99be88c3e88fd548.cloudfront.net (CloudFront)
       X-Amz-Cf-Pop:
-      - IAD89-C3
+      - PHL51-P2
       Alt-Svc:
       - h3=":443"; ma=86400
       X-Amz-Cf-Id:
-      - kADXMAb5PDKm3c52acqO19zU3Khx6YwjED2EkFWlp6EjfwQPxWzLOw==
+      - 3a4gFvGQ7UY8X-91TxU97JZKYSgwms98MdubG7u3drP1eMF37PnzRQ==
     body:
       encoding: ASCII-8BIT
-      string: '{"success":false,"status_code":6,"status_message":"Invalid id: The
-        pre-requisite id is invalid or not found."}'
-  recorded_at: Thu, 10 Oct 2024 22:49:36 GMT
+      string: '{"success":false,"status_code":34,"status_message":"The resource you
+        requested could not be found."}'
+  recorded_at: Fri, 11 Oct 2024 01:44:50 GMT
 recorded_with: VCR 6.3.1

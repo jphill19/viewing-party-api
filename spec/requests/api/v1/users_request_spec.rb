@@ -36,7 +36,7 @@ RSpec.describe "Users API", type: :request do
 
         expect(response).to have_http_status(:bad_request)
         expect(json[:message]).to eq("Username has already been taken")
-        expect(json[:status]).to eq(400)
+        expect(json[:status]).to eq(422)
       end
 
       it "returns an error when password does not match password confirmation" do
@@ -70,6 +70,7 @@ RSpec.describe "Users API", type: :request do
 
   describe "Get All Users Endpoint" do
     it "retrieves all users but does not share any sensitive data" do
+      User.destroy_all
       User.create!(name: "Tom", username: "myspace_creator", password: "test123")
       User.create!(name: "Oprah", username: "oprah", password: "abcqwerty")
       User.create!(name: "Beyonce", username: "sasha_fierce", password: "blueivy")
